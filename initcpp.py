@@ -8,6 +8,15 @@ import argparse
 project_path = ""
 name = ""
 project_type = ""
+src_dir = "/usr/local/share/initcpp"
+
+def checkEnv():
+    if os.path.split(os.path.realpath(__file__))[0] != "/usr/local/bin":
+        print("[Error]: 请先运行install.py安装后再执行本程序")
+        exit(1)
+    if not os.path.exists(src_dir):
+        print("[Error]: 程序运行所需文件丢失，请尝试重新安装")
+        exit(1)
 
 def parseParameter():
     parser = argparse.ArgumentParser()
@@ -47,17 +56,27 @@ def createDirs():
         makeDir(os.path.join(project_path, "lib"))
         makeDir(os.path.join(project_path, "src"))
         makeDir(os.path.join(project_path, "res"))
-        makeDir(os.path.join(project_path, "tests", "catch"))
     except PermissionError:
         print("[Error]: 创建目录失败，请检查权限")
+
+def createCMakeLists():
+    pass
 
 
 def createTestFiles():
     try:
-       shutil.copy(os.path.join("/home/zix/Project/init-cpp", "tests", "catch", "catch.hpp"), os.path.join(project_path, "tests", "catch"))
-       shutil.copy(os.path.join("/home/zix/Project/init-cpp", "tests", "main.cpp"), os.path.join(project_path, "tests"))
+       shutil.copytree(os.path.join(src_dir, "catch"), os.path.join(project_path, "tests", "catch"))
     except Exception:
-        print("[Warning]: 复制测试所需文件出错，可能是文件缺失或权限不足")
+        print("[Warning]: 复制catch.hpp出错，可能是文件缺失或权限不足")
+        raise
+    try:
+        with open(os.path.join(project_path, "tests", "main.cpp"), 'w') as test_main:
+                test_main.write("#define CATCH_CONFIG_MAIN\n")
+                test_main.write("#include \"catch/catch.hpp\"\n")
+                test_main.close()
+    except Exception:
+        print("[Waring]: 测试文件main.cpp创建失败")
+        raise
 
 def createReadme():
     try:
@@ -68,15 +87,17 @@ def createReadme():
 
 def createGitignore():
     try:
-        shutil.copy(os.path.join("/home/zix/Project/init-cpp", "gitignore", "%s.gitignore" % project_type), 
+        shutil.copy(os.path.join(src_dir, "gitignore", "%s.gitignore" % project_type), 
                 os.path.join(project_path, ".gitignore"));
     except Exception:
-        print("[Warning]: 创建.gitignore文件失败，可能是文件缺失或权限不足")
+        print("[Warning]: 生成.gitignore文件失败，可能是文件缺失或权限不足")
 
 
 if __name__ == "__main__":
+    checkEnv()
     parseParameter()
     createDirs()
+    createCMakeLists()
     createTestFiles()
     createReadme()
     createGitignore()
