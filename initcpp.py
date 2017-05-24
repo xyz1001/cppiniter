@@ -42,7 +42,7 @@ def parseParameter():
         project_type = "cmake"
     else:
         project_type = args.type
-    print("[Debug]: Project path: %s, name: %s, type: %s" % (project_path, name, project_type))
+    print("[Info]: Project path: %s, name: %s, type: %s" % (project_path, name, project_type))
 
 def createDirs():
     def makeDir(dirPath):
@@ -59,8 +59,26 @@ def createDirs():
     except PermissionError:
         print("[Error]: 创建目录失败，请检查权限")
 
+
+
 def createCMakeLists():
-    pass
+    def createTopCMakeLists():
+        with open("CMakeLists.txt", 'w') as cmakelists:
+            cmakelists.write("project (%s)\n" % name)
+            cmakelists.write("cmake_minimum_required (VERSION 2.8)\n")
+            cmakelists.write("add_subdirectory (src)\n")
+
+    def createSrcCMakeLists():
+        with open(os.path.join("src","CMakeLists.txt"), 'w') as cmakelists:
+            cmakelists.write("aux_source_directory(. SRC)\n")
+            cmakelists.write("add_executable (main ${SRC})\n")
+
+    try:
+        pass
+    except Exception:
+        print("[Error]: 创建CMakeLists.txt文件失败")
+    createTopCMakeLists()
+    createSrcCMakeLists()
 
 
 def createTestFiles():
