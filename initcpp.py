@@ -56,6 +56,7 @@ def createDirs():
         makeDir(os.path.join(project_path, "lib"))
         makeDir(os.path.join(project_path, "src"))
         makeDir(os.path.join(project_path, "res"))
+        makeDir(os.path.join(project_path, "tests"))
     except PermissionError:
         print("[Error]: 创建目录失败，请检查权限")
 
@@ -64,14 +65,23 @@ def createDirs():
 def createCMakeLists():
     def createTopCMakeLists():
         with open("CMakeLists.txt", 'w') as cmakelists:
-            cmakelists.write("project (%s)\n" % name)
-            cmakelists.write("cmake_minimum_required (VERSION 2.8)\n")
+            cmakelists.write("project (%s)\n\n" % name)
+            cmakelists.write("cmake_minimum_required (VERSION 2.8)\n\n")
             cmakelists.write("add_subdirectory (src)\n")
+            cmakelists.write("add_subdirectory (tests)\n")
 
     def createSrcCMakeLists():
         with open(os.path.join("src","CMakeLists.txt"), 'w') as cmakelists:
-            cmakelists.write("aux_source_directory(. SRC)\n")
-            cmakelists.write("add_executable (main ${SRC})\n")
+            cmakelists.write("add_executable (main main.cpp)\n\n")
+            cmakelists.write("# add_library (helloworld helloworld.cpp)\n\n")
+            cmakelists.write("# target_link_libraries (main helloworld)\n")
+
+    def createTestsCMakeLists():
+        with open(os.path.join("tests","CMakeLists.txt"), 'w') as cmakelists:
+            cmakelists.write("include_directories (${PROJECT_SOURCE_DIR}/src)\n")
+            cmakelists.write("link_directories (${PROJECT_SOURCE_DIR}/src)\n\n")
+            cmakelists.write("add_executable (catch main.cpp test.cpp)\n\n")
+            cmakelists.write("# target_link_libraries (catch helloworld)\n")
 
     try:
         pass
@@ -79,9 +89,16 @@ def createCMakeLists():
         print("[Error]: 创建CMakeLists.txt文件失败")
     createTopCMakeLists()
     createSrcCMakeLists()
+    createTestsCMakeLists();
 
 
-def createTestFiles():
+def createBaseFiles():
+    try:
+        shutil.copy(os.path.join(src_dir, "main.cpp"),
+                os.path.join(project_path, "src", "main.cpp"));
+    except Exception:
+        print("[Warning]: 复制main.cpp文件失败，可能是文件缺失或权限不足")
+
     try:
        shutil.copytree(os.path.join(src_dir, "catch"), os.path.join(project_path, "tests", "catch"))
     except Exception:
@@ -90,6 +107,9 @@ def createTestFiles():
     try:
         with open(os.path.join(project_path, "tests", "main.cpp"), 'w') as test_main:
                 test_main.write("#define CATCH_CONFIG_MAIN\n")
+                test_main.write("#include \"catch/catch.hpp\"\n")
+                test_main.close()
+        with open(os.path.join(project_path, "tests", "test.cpp"), 'w') as test_main:
                 test_main.write("#include \"catch/catch.hpp\"\n")
                 test_main.close()
     except Exception:
@@ -115,8 +135,8 @@ if __name__ == "__main__":
     checkEnv()
     parseParameter()
     createDirs()
+    createBaseFiles()
     createCMakeLists()
-    createTestFiles()
     createReadme()
     createGitignore()
     
