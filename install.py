@@ -18,6 +18,7 @@ def main():
     try:
         shutil.copytree("catch", os.path.join(dest, "catch"))
         shutil.copytree("gitignore", os.path.join(dest, "gitignore"))
+        shutil.copy("main.cpp", os.path.join(dest, "main.cpp"))
     except Exception:
         print("拷贝文件失败")
         raise
