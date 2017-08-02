@@ -125,7 +125,7 @@ def createReadme():
 
 def createGitignore():
     try:
-        shutil.copy(os.path.join(src_dir, "gitignore", "%s.gitignore" % project_type), 
+        shutil.copy(os.path.join(src_dir, "gitignore", "%s.gitignore" % project_type.lower()), 
                 os.path.join(project_path, ".gitignore"));
     except Exception:
         print("[Warning]: 生成.gitignore文件失败，可能是文件缺失或权限不足")
