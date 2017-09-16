@@ -6,7 +6,7 @@ import shutil
 
 def main():
     try:
-        shutil.copy("initcpp.py", "/usr/local/bin")
+        shutil.copy("initcpp.py", "/usr/local/bin/initcpp")
     except PermissionError:
         print("请以超级用户权限执行该文件")
         exit(1)

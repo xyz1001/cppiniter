@@ -6,7 +6,7 @@ import shutil
 
 def main():
     try:
-        exe = "/usr/local/bin/initcpp.py";
+        exe = "/usr/local/bin/initcpp";
         if os.path.exists(exe):
             os.remove(exe)
     except PermissionError:
