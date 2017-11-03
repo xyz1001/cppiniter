@@ -1,0 +1,6 @@
+/doc
+*boost*
+*third_party*
+*contrib*
+catch.hpp
+*.m4
