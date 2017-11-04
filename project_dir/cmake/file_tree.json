@@ -1,0 +1,30 @@
+{
+    "src":{
+        "file":{
+            "CMakeLists.txt":"SRC_CMAKELISTS_TXT"
+        }
+    }
+
+    "dev":{
+        "include":{},
+        "bin":{},
+        "lib":{}
+    }
+
+    "doc":{}
+
+    "test":{
+        "catch":{
+            "file":{
+                "catch.hpp":"test_catch_hpp"
+            }
+        },
+        "file":{
+            "main.cpp":"test_main_cpp"
+        }
+    }
+
+    "file":{
+        "CMakeLists.txt":"PROJECT_CMAKELISTS_TXT"
+    }
+}
