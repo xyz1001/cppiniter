@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""cppiniter init a cpp project struction
+
+Usage:
+    cppiniter [<name>] [-d=<dir> | --dir=<dir>] [--cmake|--qmake]
+
+Options:
+    <name>                  项目名，默认为项目目录名
+    -d=<dir> --dir=<dir>             项目目录，默认为当前目录
+    --cmake               使用CMake进行构建
+    --qmake 使用qmake进行构建
+"""
+
 import os
 import shutil
 import argparse
