@@ -16,7 +16,7 @@ def main():
         shutil.rmtree(dest)
 
     try:
-        shutil.copytree("project_dir", os.path.join(dest, "project_dir"))
+        shutil.copytree("data", os.path.join(dest, "data"))
     except Exception:
         print("拷贝文件失败")
         raise
