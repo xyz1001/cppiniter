@@ -32,7 +32,6 @@ class Project(object):
         self.build_system = build_system
         self.is_lib = is_lib
 
-
     def __str__(self):
         return "name: %s\ndir: %s\nbuild system: %s\nlibrary: %s"%(self.dir,self.name, self.build_system, self.is_lib)
 
