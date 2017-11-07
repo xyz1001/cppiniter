@@ -101,6 +101,6 @@ ENV/
 .mypy_cache/
 
 # vim
-.swp
-.swn
-.swo
+*.swp
+*.swn
+*.swo
