@@ -6,19 +6,17 @@ import shutil
 
 def main():
     try:
-        shutil.copy("initcpp.py", "/usr/local/bin/initcpp")
+        shutil.copy("cppiniter.py", "/usr/local/bin/cppiniter")
     except PermissionError:
         print("请以超级用户权限执行该文件")
         exit(1)
 
-    dest = "/usr/local/share/initcpp"
+    dest = "/usr/local/share/cppiniter"
     if os.path.exists(dest):
         shutil.rmtree(dest)
 
     try:
-        shutil.copytree("catch", os.path.join(dest, "catch"))
-        shutil.copytree("gitignore", os.path.join(dest, "gitignore"))
-        shutil.copy("main.cpp", os.path.join(dest, "main.cpp"))
+        shutil.copytree("data", os.path.join(dest, "data"))
     except Exception:
         print("拷贝文件失败")
         raise
