@@ -7,14 +7,16 @@ C++项目初始化工具，用于自动创建一个统一的C++软件项目的�
 ../projetc/
 ├── build
 ├── CMakeLists.txt
+├── dev
+│   ├── bin
+│   ├── include
+│   └── lib
 ├── doc
-│   └── examples
-├── include
-├── lib
 ├── README.md
 ├── src
-│   └── CMakeLists.txt
-└── tests
+│   ├── CMakeLists.txt
+│   └── main.cpp
+└── test
     ├── catch
     │   └── catch.hpp
     ├── CMakeLists.txt
@@ -31,17 +33,21 @@ C++项目初始化工具，用于自动创建一个统一的C++软件项目的�
  所有的文档应该放在这个目录下。
    - `/examples`(可选)
    可以包含一个`examples`目录用于介绍api的接口使用。
- - `include`
- 外部库头文件目录
- - `lib`
- 外部库文件目录
+ - `dev`
+ 外部库目录
+   - `lib`
+   外部库库文件目录
+   - `include`
+   外部库头文件目录
+   - `bin`
+   外部库动态链接文件目录
  - `README.md`
  项目应该有一个`README.md`用来介绍这个项目。但是项目的编译、使用等文档应该放在`doc`目录下面
  - `/src`
  这个目录下面存放项目的源码，包括`.cpp`文件和内部使用的`.h`文件
    - `CMakeLists.txt`
   这个文件用于自动构建项目
- - `/tests`
+ - `/test`
   所有的测试文件应该放在这个目录下面
    - `CMakeLists.txt`
   用于测试代码的自动构建
