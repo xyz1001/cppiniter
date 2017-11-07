@@ -1,5 +1,5 @@
 # Init CPP
-C++项目初始化工具，用于自动创建一个统一的C++软件项目的初始目录和文件,基于荣飞哥(https://github.com/zhaohuaxishi)的CPDS(CPP Project Directory Structure)项目的启发而开发，详情见[`cpds.md`](./cpds.md)。
+C++项目初始化工具，用于自动创建一个统一的C++软件项目的初始目录和文件,基于[荣飞哥](https://github.com/zhaohuaxishi)的CPDS(CPP Project Directory Structure)项目的启发而开发，详情见[`cpds.md`](./cpds.md)。
 
 # C++项目结构规范
 
