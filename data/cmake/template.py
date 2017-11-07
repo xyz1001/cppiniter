@@ -11,6 +11,7 @@ cmake_minimum_required (VERSION 3.0)
 project ({{{project_name}}})
 
 # include header
+include_directories(${PROJECT_SOURCE_DIR}/dev/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/tests)
 
