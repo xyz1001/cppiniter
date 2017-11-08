@@ -21,7 +21,7 @@ import pystache
 import time
 from docopt import docopt
 
-DATA_INSTALL_DIR = "/usr/local/share/cppiniter"
+DATA_INSTALL_DIR = "/usr/local/share/cppiniter/data"
 VERSION = "1.0"
 TMP_DIR = "/tmp/cppiniter"
 
@@ -56,7 +56,7 @@ class Generator(object):
         self.data_dir = os.path.join(bin_dir, "data")
         if not os.path.isdir(self.data_dir):
             self.data_dir = DATA_INSTALL_DIR
-            if not os.path.isdir(self.__file_dir()):
+            if not os.path.isdir(self.data_dir):
                 print("[Error]: 程序运行所需文件丢失，请尝试重新安装")
                 exit(1)
         if not os.path.isdir(TMP_DIR):
