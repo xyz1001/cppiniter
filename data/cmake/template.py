@@ -27,8 +27,11 @@ if(WIN32)
 endif()
 
 if(UNIX)
-    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} ${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
-    set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} ${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall -g2 -ggdb -D_GLIBCXX_DEBUG")
+    set(CMAKE_CXX_FLAGS
+            "$ENV{CXXFLAGS} ${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
+    set(CMAKE_CXX_FLAGS_DEBUG
+            "$ENV{CXXFLAGS} ${CMAKE_CXX_FLAGS_DEBUG}
+            -O0 -Wall -g2 -ggdb -D_GLIBCXX_DEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 endif()
 
@@ -57,9 +60,9 @@ add_executable ({{{project_name}}} ${SRC})
 
 # install
 INSTALL(TARGETS {{{project_name}}}
-	RUNTIME DESTINATION bin
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib)
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
 """
 
 TEST_CMAKELISTS_TXT = """\
@@ -87,7 +90,9 @@ README_MD = """\
 
 #####################################################################
 
-FILES = { "PROJECT_CMAKELISTS_TXT":PROJECT_CMAKELISTS_TXT,
-        "SRC_CMAKELISTS_TXT":SRC_CMAKELISTS_TXT,
-        "TEST_CMAKELISTS_TXT":TEST_CMAKELISTS_TXT,
-        "README_MD":README_MD}
+FILES = {
+    "PROJECT_CMAKELISTS_TXT": PROJECT_CMAKELISTS_TXT,
+    "SRC_CMAKELISTS_TXT": SRC_CMAKELISTS_TXT,
+    "TEST_CMAKELISTS_TXT": TEST_CMAKELISTS_TXT,
+    "README_MD": README_MD
+}

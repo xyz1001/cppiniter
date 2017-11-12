@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """cppiniter init a cpp project struction
 
 Usage:
@@ -25,6 +24,7 @@ DATA_INSTALL_DIR = "/usr/local/share/cppiniter/data"
 VERSION = "1.0"
 TMP_DIR = "/tmp/cppiniter"
 
+
 class Project(object):
     def __init__(self, project_dir, project_name, build_system, is_lib):
         self.dir = project_dir
@@ -33,10 +33,12 @@ class Project(object):
         self.is_lib = is_lib
 
     def __str__(self):
-        return "name: %s\ndir: %s\nbuild system: %s\nlibrary: %s"%(self.dir,self.name, self.build_system, self.is_lib)
+        return "name: %s\ndir: %s\nbuild system: %s\nlibrary: %s" % (
+            self.dir, self.name, self.build_system, self.is_lib)
 
     def __repr__(self):
         return self.__str__()
+
 
 class Generator(object):
     def generate(self, project):
@@ -64,36 +66,43 @@ class Generator(object):
         if not os.path.isdir(self.project.dir):
             os.mkdir(self.project.dir)
         if os.listdir(self.project.dir):
-            ok = input("目标文件夹%s不为空，删除该文件夹下所有内容并继续？（y/N）"%self.project.dir)
+            ok = input("目标文件夹%s不为空，删除该文件夹下所有内容并继续？（y/N）" % self.project.dir)
             if ok == "y" or ok == "Y":
                 shutil.rmtree(self.project.dir)
                 os.mkdir(self.project.dir)
             else:
                 exit(-1)
 
-    def __generate_files(self) :
+    def __generate_files(self):
         sys.path.append(self.__file_dir())
         import template
 
-        info = {"project_dir": self.project.dir,
-                "project_name":self.project.name,
-                "build_system":self.project.build_system,
-                "is_lib":self.project.is_lib,
-                "date_time":str(time.strftime("%Y-%m-%d %A %X %Z",
-                    time.localtime())),
-                "version": VERSION};
-        for (k,v) in template.FILES.items():
+        info = {
+            "project_dir":
+            self.project.dir,
+            "project_name":
+            self.project.name,
+            "build_system":
+            self.project.build_system,
+            "is_lib":
+            self.project.is_lib,
+            "date_time":
+            str(time.strftime("%Y-%m-%d %A %X %Z", time.localtime())),
+            "version":
+            VERSION
+        }
+        for (k, v) in template.FILES.items():
             content = pystache.render(v, info)
-            with open(os.path.join(TMP_DIR,k), "w") as fout:
-                    fout.write(content)
+            with open(os.path.join(TMP_DIR, k), "w") as fout:
+                fout.write(content)
 
-    def __copy_files(self) :
-        files_dir = os.path.join(self.__file_dir(),"files")
+    def __copy_files(self):
+        files_dir = os.path.join(self.__file_dir(), "files")
         for i in os.listdir(files_dir):
             shutil.copy2(os.path.join(files_dir, i), os.path.join(TMP_DIR, i))
 
     def __create_file_tree(self):
-        file_tree_path = os.path.join(self.__file_dir(),  "file_tree.json")
+        file_tree_path = os.path.join(self.__file_dir(), "file_tree.json")
         with open(file_tree_path, "r") as fin:
             file_tree = json.loads(fin.read())
         self.__create_tree(file_tree, self.project.dir)
@@ -105,8 +114,10 @@ class Generator(object):
                 os.mkdir(dir_path)
                 self.__create_tree(v, dir_path)
             else:
-                for (file_name,file_source) in v.items():
-                    shutil.copy2(os.path.join(TMP_DIR, file_source), os.path.join(dest_dir, file_name))
+                for (file_name, file_source) in v.items():
+                    shutil.copy2(
+                        os.path.join(TMP_DIR, file_source),
+                        os.path.join(dest_dir, file_name))
 
     def __clean(self):
         shutil.rmtree(TMP_DIR)
@@ -121,18 +132,20 @@ def parse_args(args):
         build_system = "cmake"
     is_lib = args["--lib"]
 
-    if project_dir == None :
+    if project_dir is None:
         project_dir = "."
     project_dir = os.path.abspath(project_dir)
-    if project_name == None:
+    if project_name is None:
         project_name = os.path.split(project_dir)[-1]
     return Project(project_dir, project_name, build_system, is_lib)
+
 
 def main():
     args = docopt(__doc__, version="1.0")
     project = parse_args(args)
     gen = Generator()
-    gen.generate(project);
+    gen.generate(project)
+
 
 if __name__ == "__main__":
     main()

@@ -4,6 +4,7 @@
 import os
 import shutil
 
+
 def main():
     try:
         shutil.copy("cppiniter.py", "/usr/local/bin/cppiniter")

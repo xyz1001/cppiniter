@@ -4,9 +4,10 @@
 import os
 import shutil
 
+
 def main():
     try:
-        exe = "/usr/local/bin/cppiniter";
+        exe = "/usr/local/bin/cppiniter"
         if os.path.exists(exe):
             os.remove(exe)
     except PermissionError:
@@ -16,6 +17,7 @@ def main():
     dest = "/usr/local/share/cppiniter"
     if os.path.exists(dest):
         shutil.rmtree(dest)
+
 
 if __name__ == "__main__":
     main()
