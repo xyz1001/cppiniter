@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """cppiniter init a cpp project struction
 
 Usage:
@@ -25,19 +24,23 @@ cppiniter_dir = ""
 VERSION = "1.0"
 TMP_DIR = "/tmp/cppiniter"
 
+
 class Project(object):
     def __init__(self, project_dir, project_name, build_system, is_lib):
         self.dir = project_dir
         self.name = project_name
         self.build_system = build_system
         self.is_lib = is_lib
-        self.data_file_dir = os.path.join(cppiniter_dir, "data", self.build_system)
+        self.data_file_dir = os.path.join(cppiniter_dir, "data",
+                                          self.build_system)
 
     def __str__(self):
-        return "name: %s\ndir: %s\nbuild system: %s\nlibrary: %s"%(self.dir,self.name, self.build_system, self.is_lib)
+        return "name: %s\ndir: %s\nbuild system: %s\nlibrary: %s" % (
+            self.dir, self.name, self.build_system, self.is_lib)
 
     def __repr__(self):
         return self.__str__()
+
 
 def checkEnv(project_dir):
     cppiniter_dir = os.path.split(os.path.realpath(__file__))[0]
@@ -51,10 +54,11 @@ def checkEnv(project_dir):
     if not os.path.isdir(project_dir):
         os.mkdir(project_dir)
     if os.listdir(project_dir):
-        ok = input("目标文件夹%s不为空，删除该文件夹下所有内容并继续？（y/N）"%project_dir)
+        ok = input("目标文件夹%s不为空，删除该文件夹下所有内容并继续？（y/N）" % project_dir)
         if ok == "y" or ok == "Y":
             shutil.rmtree(project_dir)
             os.mkdir(project_dir)
+
 
 def parseArgs(args):
     project_dir = args["<dir>"]
@@ -65,38 +69,44 @@ def parseArgs(args):
         build_system = "cmake"
     is_lib = args["--lib"]
 
-    if project_dir == None :
+    if project_dir is None:
         project_dir = "."
     project_dir = os.path.abspath(project_dir)
-    if project_name == None:
+    if project_name is None:
         project_name = os.path.split(project_dir)[-1]
     return Project(project_dir, project_name, build_system, is_lib)
 
-def generateFiles(project) :
+
+def generateFiles(project):
     sys.path.append(project.data_file_dir)
     import template
 
-    info = {"project_dir": project.dir,
-            "project_name":project.name,
-            "build_system":project.build_system,
-            "is_lib":project.is_lib,
-            "date_time":str(datetime.now()),
-            "version": VERSION};
-    for (k,v) in template.FILES.items():
+    info = {
+        "project_dir": project.dir,
+        "project_name": project.name,
+        "build_system": project.build_system,
+        "is_lib": project.is_lib,
+        "date_time": str(datetime.now()),
+        "version": VERSION
+    }
+    for (k, v) in template.FILES.items():
         content = pystache.render(v, info)
-        with open(os.path.join(TMP_DIR,k), "w") as fout:
-                fout.write(content)
+        with open(os.path.join(TMP_DIR, k), "w") as fout:
+            fout.write(content)
 
-def copyFiles(project) :
-    files_dir = os.path.join(project.data_file_dir,"files")
+
+def copyFiles(project):
+    files_dir = os.path.join(project.data_file_dir, "files")
     for i in os.listdir(files_dir):
         shutil.copy2(os.path.join(files_dir, i), os.path.join(TMP_DIR, i))
 
+
 def ParseFileTree(project):
-    file_tree_path = os.path.join(project.data_file_dir,  "file_tree.json")
+    file_tree_path = os.path.join(project.data_file_dir, "file_tree.json")
     with open(file_tree_path, "r") as fin:
         file_tree = json.loads(fin.read())
     return file_tree
+
 
 def CreateTree(file_tree, dest_dir):
     for (k, v) in file_tree.items():
@@ -105,11 +115,15 @@ def CreateTree(file_tree, dest_dir):
             os.mkdir(dir_path)
             CreateTree(v, dir_path)
         else:
-            for (file_name,file_source) in v.items():
-                shutil.copy2(os.path.join(TMP_DIR, file_source), os.path.join(dest_dir, file_name))
+            for (file_name, file_source) in v.items():
+                shutil.copy2(
+                    os.path.join(TMP_DIR, file_source),
+                    os.path.join(dest_dir, file_name))
+
 
 def Clean():
     shutil.rmtree(TMP_DIR)
+
 
 if __name__ == "__main__":
     args = docopt(__doc__, version="1.0")
