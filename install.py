@@ -3,6 +3,7 @@
 
 import os
 import shutil
+import pip
 
 
 def main():
@@ -11,6 +12,7 @@ def main():
     except PermissionError:
         print("请以超级用户权限执行该文件")
         exit(1)
+    pip.main(["install", "pystache", "docopt"])
 
     dest = "/usr/local/share/cppiniter"
     if os.path.exists(dest):
