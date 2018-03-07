@@ -30,7 +30,7 @@
 
     "file":{
         "CMakeLists.txt":"PROJECT_CMAKELISTS_TXT",
-        ".clang_format":"clang_format",
+        ".clang-format":"clang_format",
         ".gitignore":"gitignore",
         ".tagignore":"tagignore",
         ".ycm_extra_conf.py":"ycm_extra_conf_py",
