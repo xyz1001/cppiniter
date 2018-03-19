@@ -23,6 +23,7 @@ from docopt import docopt
 DATA_INSTALL_DIR = "/usr/local/share/cppiniter/data"
 VERSION = "1.0"
 TMP_DIR = "/tmp/cppiniter"
+IGNORE_FILES = set([".git", "LICENSE"])
 
 
 class Project(object):
@@ -65,7 +66,7 @@ class Generator(object):
             os.mkdir(TMP_DIR)
         if not os.path.isdir(self.project.dir):
             os.mkdir(self.project.dir)
-        if os.listdir(self.project.dir):
+        if not set(os.listdir(self.project.dir)) <= IGNORE_FILES:
             ok = input("目标文件夹%s不为空，删除该文件夹下所有内容并继续？（y/N）" % self.project.dir)
             if ok == "y" or ok == "Y":
                 shutil.rmtree(self.project.dir)
