@@ -10,7 +10,25 @@
 
 何为脚手架？见[脚手架是什么？](https://stackoverflow.com/questions/235018/what-is-scaffolding-is-it-a-term-for-a-particular-platform)
 
-# 目录结构
+## 安装
+
+```
+pip3 install cppiniter
+```
+
+## 使用
+
+```
+Usage:
+    cppiniter [<dir>] [--name=<name>] [--lib]
+
+Options:
+    <dir>                   项目目录，默认为当前目录
+    --name=<name>           项目名，默认为项目目录名
+    --lib                   项目目标为C++库
+```
+
+## 目录结构
 
 ```
 project
