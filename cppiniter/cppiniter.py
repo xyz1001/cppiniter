@@ -18,6 +18,7 @@ import pystache
 from docopt import docopt
 
 IGNORE_FILES = set([".git", "LICENSE"])
+EMPTY_DIR = ("build", "doc")
 
 
 def install(args):
@@ -30,6 +31,8 @@ def install(args):
                     args["project_dir"],
                     ignore=shutil.ignore_patterns(*ignores),
                     dirs_exist_ok=True)
+    for i in EMPTY_DIR:
+        os.mkdir(os.path.join(args["project_dir"], i))
 
 
 def render(dir, args):
