@@ -584,3 +584,6 @@ MigrationBackup/
 
 # End of https://www.toptal.com/developers/gitignore/api/cmake,c++,vim,visualstudio
 n
+
+build/
+out/

@@ -13,48 +13,21 @@
 # 目录结构
 
 ```
-/project
-
-    - /build
-
-      我们应该保持一棵干净的源码树，所有编译应该单独在这个目录进行，产生的
-      object 文件也存在在这个目录。
-
-      这个目录里面的东西，不应该上传到 gitlab 上。
-
-    - /doc
-
-      所有的文档应该放在这个目录下。
-
-        - /examples 可选
-
-          可以包含一个 examples 目录用于介绍 api 的接口使用。
-
-    - /src
-
-      这个目录下面存放项目的源码，包括 .cpp 文件和内部使用的 .h 文件
-
-        - Makefile.am
-
-          这个文件用于自动构建项目
-
-    - /tests
-
-      所有的测试文件应该放在这个目录下面
-
-        - Makefile.am
-
-          用于测试代码的自动构建
-
-    - Makefile.am
-    - configure.ac
-
-      这两个文件用于 GNU 的 autotool 自动构建项目。其中 Makefile.am 中包含 src
-      子目录和 tests 子目录。
-
-    - README.md
-
-      项目应该有一个 README.md 用来介绍这个项目。但是项目的编译、使用等文档应该
-      放在 doc 目录下面
+project
+├── .clang-format # clang format 格式化配置
+├── .gitignore # git 忽略文件
+├── CMakeLists.txt # 顶层 CMake 构建脚本
+├── conanfile.txt # conan 包依赖配置
+├── README.md # 用来介绍这个项目
+├── src # 存放项目的源码，包括 .cpp 文件和 .h 文件
+│   ├── CMakeLists.txt
+│   └── main.cpp
+├── test # 所有的测试文件应该放在这个目录下面
+│   ├── CMakeLists.txt
+│   └── main_cpp # 加快catch2的编译速度
+├── .ycm_extra_conf.py # vim Youcompleteme 补全配置文件，非 vimer 请忽略
+├── doc # 文档保存目录
+├── out # 在没有指定安装目录时默认安装目录，避免安装到系统目录。这个目录应加入gitignore
+└── build # 我们应该保持一棵干净的源码树，所有编译动作应该单独在这个目录进行。这个目录应加入gitignore
 ```
 
