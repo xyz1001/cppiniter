@@ -11,7 +11,7 @@ sys.dont_write_bytecode = True
 
 setup(
     name='cppiniter',
-    version="1.0.2",
+    version="1.0.3",
     description="C++项目脚手架",
     long_description="""用于提供C++项目开发环境的初始化""",
     keywords='c++ scaffolding',

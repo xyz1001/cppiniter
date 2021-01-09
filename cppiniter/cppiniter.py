@@ -22,7 +22,7 @@ EMPTY_DIR = ("build", "doc")
 
 
 def install(args):
-    ignores = []
+    ignores = ["*.pyc", "__pycache__"]
     if args["is_lib"]:
         ignores.append("src/main.cpp")
 
