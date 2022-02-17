@@ -1,2 +1,8 @@
+/*
+ * author: {{{author}}} <{{{email}}}>
+ * created at: {{{date_time}}}
+ * coding: utf-8
+ */
+
 #define CATCH_CONFIG_MAIN
 #include "catch/catch.hpp"

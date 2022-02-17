@@ -1,5 +1,7 @@
 /*
- * -*- coding: uft-8 -*-
+ * author: {{{author}}} <{{{email}}}>
+ * created at: {{{date_time}}}
+ * coding: utf-8
  */
 
 #include <iostream>

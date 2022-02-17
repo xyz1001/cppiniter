@@ -3,4 +3,3 @@ catch2/2.11.3
 
 [generators]
 cmake
-ycm

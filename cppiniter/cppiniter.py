@@ -12,10 +12,13 @@ Options:
 """
 
 import os
+import sys
 import shutil
 import inquirer
 import pystache
+import subprocess
 from docopt import docopt
+from datetime import datetime
 
 IGNORE_FILES = set([".git", "LICENSE"])
 EMPTY_DIR = ("build", "doc")
@@ -52,6 +55,14 @@ def preprocess(args):
     project_dir = args["<dir>"]
     project_name = args["--name"]
     is_lib = args["--lib"]
+    author = subprocess.check_output(["git", "config", "--get", "user.name"]
+                                     ).decode(sys.stdout.encoding).strip()
+    email = subprocess.check_output(["git", "config", "--get", "user.email"]
+                                    ).decode(sys.stdout.encoding).strip()
+    date_time = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+
+    if author is None:
+        author = os.getlogin()
 
     if project_dir is None:
         project_dir = "."
@@ -68,7 +79,12 @@ def preprocess(args):
             os.mkdir(project_dir)
         else:
             exit(-1)
-    return {"project_name": project_name, "project_dir": project_dir, "is_lib": is_lib}
+    return {"project_name": project_name, "project_dir": project_dir, "is_lib": is_lib, "date_time": date_time, "author": author, "email": email}
+
+
+def execute(dir):
+    subprocess.run(["conan", "install", ".."], cwd=os.path.join(dir, "build"))
+    subprocess.run(["cmake", ".."], cwd=os.path.join(dir, "build"))
 
 
 def main():
@@ -76,6 +92,7 @@ def main():
     args = preprocess(args)
     install(args)
     render(args["project_dir"], args)
+    execute(args["project_dir"])
 
 
 if __name__ == "__main__":
