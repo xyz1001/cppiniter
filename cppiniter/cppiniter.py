@@ -17,6 +17,7 @@ import shutil
 import inquirer
 import pystache
 import subprocess
+import platform
 from docopt import docopt
 from datetime import datetime
 
@@ -84,7 +85,10 @@ def preprocess(args):
 
 def execute(dir):
     subprocess.run(["conan", "install", ".."], cwd=os.path.join(dir, "build"))
-    subprocess.run(["cmake", ".."], cwd=os.path.join(dir, "build"))
+    if platform.system() == "Windows":
+        subprocess.run(["cmake","-G", "Ninja", ".."], cwd=os.path.join(dir, "build"))
+    else:
+        subprocess.run(["cmake", ".."], cwd=os.path.join(dir, "build"))
 
 
 def main():
