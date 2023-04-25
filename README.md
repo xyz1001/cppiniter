@@ -38,6 +38,8 @@ project
 │
 ├── CMakeLists.txt # 顶层 CMake 构建脚本
 │
+├── CMakeSettings.json # Visual Studio CMake 配置
+│
 ├── conanfile.txt # conan 包依赖配置
 │
 ├── README.md # 用来介绍这个项目

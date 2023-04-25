@@ -1,0 +1,48 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x86-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": ["msvc_x86"],
+      "buildRoot": "${workspaceRoot}\\build",
+      "installRoot": "${workspaceRoot}\\build\\bin",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "x86-Release",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "inheritEnvironments": ["msvc_x86"],
+      "buildRoot": "${workspaceRoot}\\build",
+      "installRoot": "${workspaceRoot}\\build\\bin",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": ["msvc_x64"],
+      "buildRoot": "${workspaceRoot}\\build",
+      "installRoot": "${workspaceRoot}\\build\\bin",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "x64-Release",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "inheritEnvironments": ["msvc_x64"],
+      "buildRoot": "${workspaceRoot}\\build",
+      "installRoot": "${workspaceRoot}\\build\\bin",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": ""
+    }
+  ]
+}
