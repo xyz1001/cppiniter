@@ -1,0 +1,16 @@
+Checks: "*,
+        -abseil-*,
+        -altera-*,
+        -android-*,
+        -fuchsia-*,
+        -zircon-*,
+        -llvmlibc-*,
+        -modernize-use-trailing-return-type,
+        -readability-redundant-access-specifiers,
+        -hicpp-special-member-functions,
+        -readability-identifier-length,
+        -misc-no-recursion,
+"
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+FormatStyle:     file

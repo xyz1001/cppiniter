@@ -3,9 +3,11 @@
 该项目用于提供C++项目开发环境的初始化。特点为：
 
 1. 使用 cmake 构建
-2. 使用 conan 进行包管理
+2. 使用 conan2 进行包管理
 3. 使用 google 编码规范
-4. 使用 catch2 作为单元测试
+4. 使用 doctest 作为单元测试
+4. 使用 clang-format 作为格式化工具
+4. 使用 clang-tidy 作为静态代码检查工具
 
 何为脚手架？见[脚手架是什么？](https://stackoverflow.com/questions/235018/what-is-scaffolding-is-it-a-term-for-a-particular-platform)
 
@@ -32,7 +34,9 @@ Options:
 ```
 project
 │
-├── .clang-format # clang format 格式化配置
+├── .clang-format # clang-format 格式化配置
+
+├── .clang-tidy # clang-tidy 静态代码检查配置
 │
 ├── .gitignore # git 忽略文件
 │
@@ -40,7 +44,7 @@ project
 │
 ├── CMakeSettings.json # Visual Studio CMake 配置
 │
-├── conanfile.txt # conan 包依赖配置
+├── conanfile.py # conan 包依赖配置
 │
 ├── README.md # 用来介绍这个项目
 │
@@ -50,11 +54,11 @@ project
 │   │
 │   └── main.cpp
 │
-├── test # 所有的测试文件应该放在这个目录下面
+├── test # 所有的单元测试文件应该放在这个目录下面
 │   │
 │   ├── CMakeLists.txt
 │   │
-│   └── main_cpp # 加快catch2的编译速度
+│   └── main.cpp # 加快doctest的编译速度
 │
 ├── doc # 文档保存目录
 │

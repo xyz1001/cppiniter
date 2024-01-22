@@ -1,5 +1,4 @@
 ---
-Language:        Cpp
 BasedOnStyle:  Google
 AccessModifierOffset: -4
 AlignAfterOpenBracket: true
@@ -9,7 +8,7 @@ AlignEscapedNewlinesLeft: true
 AlignOperands:   true
 AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortBlocksOnASingleLine: true
+AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: true
@@ -65,5 +64,9 @@ Standard:        Auto
 TabWidth:        8
 UseTab:          Never
 IncludeBlocks: Preserve
+---
+Language:        Cpp
+---
+Language:        ObjC
 ...
 

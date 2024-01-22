@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 """cppiniter init a cpp project struction
 
 Usage:
@@ -80,15 +81,18 @@ def preprocess(args):
             os.mkdir(project_dir)
         else:
             exit(-1)
-    return {"project_name": project_name, "project_dir": project_dir, "is_lib": is_lib, "date_time": date_time, "author": author, "email": email}
+
+    project_name_uppercase = project_name.upper()
+    project_name_camelcase = ''.join(project_name.title() for word in project_name.split('_'))
+    return {"project_name": project_name, "project_name_uppercase": project_name_uppercase, "project_name_camelcase": project_name_camelcase, "project_dir": project_dir, "is_lib": is_lib, "date_time": date_time, "author": author, "email": email}
 
 
 def execute(dir):
-    subprocess.run(["conan", "install", ".."], cwd=os.path.join(dir, "build"))
+    subprocess.run(["conan", "install", "..", "-s:h", "build_type=Debug", "--build", "missing"], cwd=os.path.join(dir, "build"))
     if platform.system() == "Windows":
-        subprocess.run(["cmake","-G", "Ninja", ".."], cwd=os.path.join(dir, "build"))
+        subprocess.run(["cmake","--preset=conan-default"], cwd=dir)
     else:
-        subprocess.run(["cmake", ".."], cwd=os.path.join(dir, "build"))
+        subprocess.run(["cmake","--preset=conan-debug"], cwd=dir)
 
 
 def main():
