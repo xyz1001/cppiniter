@@ -28,3 +28,7 @@ INSTALL(TARGETS {{{project_name}}}
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib)
+
+if(MSVC AND BUILD_SHARED_LIBS)
+    install(FILES $<TARGET_PDB_FILE:{{{project_name}}}> DESTINATION lib)
+endif()
