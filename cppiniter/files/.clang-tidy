@@ -10,6 +10,9 @@ Checks: "*,
         -hicpp-special-member-functions,
         -readability-identifier-length,
         -misc-no-recursion,
+        -hicpp-no-array-decay,
+        -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+        -llvm-include-order,
 "
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
