@@ -76,11 +76,31 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/build/install/ CACHE PATH "default install prefix" FORCE)
 endif()
 
-option(BUILD_TEST "build tests" OFF)
+{{#is_lib}}
+option(BUILD_TEST "build test" OFF)
+option(BUILD_EXAMPLE "build example" OFF)
+{{/is_lib}}
 
 add_subdirectory(src)
 {{#is_lib}}
 if(BUILD_TEST)
     add_subdirectory (test)
+endif()
+
+if(BUILD_EXAMPLE)
+    add_subdirectory (example)
+endif()
+
+if (BUILD_EXAMPLE OR BUILD_TEST)
+    if (WIN32)
+        set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
+        set(CMAKE_INSTALL_DEBUG_LIBRARIES TRUE)
+
+        file(GLOB DLLS ${CMAKE_BINARY_DIR}/*.dll)
+        INSTALL(FILES ${DLLS} DESTINATION bin)
+    elseif(APPLE)
+        file(GLOB DYLIBS ${CMAKE_BINARY_DIR}/*.dylib)
+        INSTALL(FILES ${DYLIBS} DESTINATION lib)
+    endif()
 endif()
 {{/is_lib}}

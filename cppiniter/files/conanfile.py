@@ -1,7 +1,7 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, cmake_layout, CMakeToolchain, CMakeDeps
 from conan.tools.scm import Git
-from conan.tools.files import update_conandata
+from conan.tools.files import update_conandata, copy
 import os
 
 
@@ -53,6 +53,13 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
 
         deps = CMakeDeps(self)
         deps.generate()
+
+        if self.settings.os == "Windows":
+            for dep in self.dependencies.values():
+                for bindir in dep.cpp_info.bindirs:
+                    copy(self, "*.dll", bindir, self.build_folder)
+                    copy(self, "*.dylib", bindir, self.build_folder)
+
 
     def build(self):
         cmake = CMake(self)
