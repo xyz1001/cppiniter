@@ -47,7 +47,9 @@ def install(args):
         dst_path = os.path.join(args["project_dir"], pystache.render(value, args))
         os.rename(src_path, dst_path)
 
-    if not args["is_exe"]:
+    if args["is_exe"]:
+        os.remove(os.path.join(args["project_dir"], "src", "export.h"))
+    else:
         os.remove(os.path.join(args["project_dir"], "src", "main.cpp"))
 
 

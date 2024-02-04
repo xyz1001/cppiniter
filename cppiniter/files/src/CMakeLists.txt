@@ -7,6 +7,10 @@ add_executable({{{project_name}}})
 {{/is_exe}}
 {{^is_exe}}
 add_library({{{project_name}}})
+
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions({{{project_name}}} PRIVATE {{{project_name_uppercase}} {{{project_name_uppercase}}_EXPORTS)
+endif()
 {{/is_exe}}
 
 target_include_directories({{{project_name}}} INTERFACE ${CMAKE_CURRENT_LIST_DIR})
