@@ -33,7 +33,6 @@ def install(args):
     if args["is_exe"]:
         ignores.append("example")
         ignores.append("test")
-        ignores.append("{{project_name}}")
 
     dir = os.path.dirname(os.path.realpath(__file__))
     shutil.copytree(os.path.join(dir, "files"),
@@ -48,9 +47,10 @@ def install(args):
         os.rename(src_path, dst_path)
 
     if args["is_exe"]:
-        os.remove(os.path.join(args["project_dir"], "src", "export.h"))
+        shutil.rmtree(os.path.join(args["project_dir"], "src", args["project_name"]))
     else:
         os.remove(os.path.join(args["project_dir"], "src", "main.cpp"))
+        os.remove(os.path.join(args["project_dir"], "src", "version.h.in"))
 
 
 def render(dir, args):

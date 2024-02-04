@@ -13,7 +13,15 @@ if(BUILD_SHARED_LIBS)
 endif()
 {{/is_exe}}
 
-target_include_directories({{{project_name}}} INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories({{{project_name}}} PUBLIC ${CMAKE_CURRENT_LIST_DIR} ${CMAKE_BINARY_DIR})
+
+{{#is_exe}}
+configure_file(${CMAKE_CURRENT_LIST_DIR}/version.h.in ${CMAKE_BINARY_DIR}/version.h)
+{{/is_exe}}
+{{^is_exe}}
+configure_file(${CMAKE_CURRENT_LIST_DIR}/{{{project_name}}}/version.h.in ${CMAKE_BINARY_DIR}/version.h)
+{{/is_exe}}
+list(APPEND SRC ${CMAKE_CURRENT_LIST_DIR}/{{{project_name}}}/version.cpp)
 
 file(GLOB SRC "*/*.h"
               "*/*.cpp"

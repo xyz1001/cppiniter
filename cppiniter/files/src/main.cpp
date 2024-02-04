@@ -6,7 +6,9 @@
 
 #include <iostream>
 
-int main() {
+#include "version.h"
 
+int main() {
+    std::cout << kVersionName << std::endl;
     return 0;
 }

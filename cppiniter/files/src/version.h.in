@@ -1,0 +1,11 @@
+/*
+ * author: {{{author}}} <{{{email}}}>
+ * created at: {{{date_time}}}
+ * coding: utf-8
+ */
+
+#pragma once
+
+#include <string>
+
+constexpr const char *kVersionName = "@VERSION_NAME@";
