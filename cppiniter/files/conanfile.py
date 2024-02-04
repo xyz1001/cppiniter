@@ -7,12 +7,12 @@ import os
 
 class {{{project_name_camelcase}}}Conan(ConanFile):
     name = "{{{project_name}}}"
-    default_user = "bytelloshare"
+    default_user = ""
     package_type = "library"
     author = "{{{author}}} {{{email}}}"
     url = ""
     description = ""
-    topics = ("bytelloshare")
+    topics = ("")
     settings = "os", "compiler", "build_type", "arch"
 {{#is_exe}}
     options = {"shared": [True, False]}

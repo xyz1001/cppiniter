@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name='cppiniter',
-    version="1.1.3",
+    version="1.1.4",
     description="C++项目脚手架",
     long_description="""用于提供C++项目开发环境的初始化""",
     keywords='c++ scaffolding',
