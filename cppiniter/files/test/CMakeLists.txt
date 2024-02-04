@@ -4,7 +4,7 @@
 
 add_executable(unittest)
 
-target_include_directories(unittest INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(unittest PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
 file(GLOB SRC "*/*.h"
               "*/*.cpp"
@@ -14,4 +14,4 @@ target_sources(unittest PRIVATE ${SRC})
 
 find_package(doctest REQUIRED CONFIG)
 
-target_link_libraries(${TARGET} PRIVATE doctest::doctest {{{project_name}}})
+target_link_libraries(unittest doctest::doctest {{{project_name}}})

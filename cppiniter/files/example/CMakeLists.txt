@@ -4,7 +4,7 @@
 
 add_executable(example)
 
-target_include_directories(example INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(example PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
 file(GLOB SRC "*/*.h"
               "*/*.cpp"
@@ -12,4 +12,4 @@ file(GLOB SRC "*/*.h"
               "*.cpp")
 target_sources(example PRIVATE ${SRC})
 
-target_link_libraries(${TARGET} PRIVATE {{{project_name}}})
+target_link_libraries({{{project_name}}} {{{project_name}}})

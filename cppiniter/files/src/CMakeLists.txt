@@ -31,7 +31,7 @@ target_sources({{{project_name}}} PRIVATE ${SRC})
 
 find_package(fmt REQUIRED CONFIG)
 
-target_link_libraries(${TARGET} fmt::fmt)
+target_link_libraries({{{project_name}}} fmt::fmt)
 
 INSTALL(TARGETS {{{project_name}}}
         RUNTIME DESTINATION bin
