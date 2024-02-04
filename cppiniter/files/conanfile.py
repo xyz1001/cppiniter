@@ -46,7 +46,11 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         cmake_layout(self)
 
     def generate(self):
-        tc = CMakeToolchain(self)
+        if self.settings.os == "Windows":
+            tc = CMakeToolchain(self, generator="Ninja")
+        else:
+            tc = CMakeToolchain(self)
+
         tc.variables["VERSION_NAME"] = self._make_version()
         tc.variables["BUILD_TEST"] = self.options.test
         tc.generate()
