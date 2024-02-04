@@ -33,9 +33,6 @@ find_package(fmt REQUIRED CONFIG)
 
 target_link_libraries(${TARGET} fmt::fmt)
 
-target_link_libraries({{{project_name}}} ${CONAN_LIBS})
-
-# install
 INSTALL(TARGETS {{{project_name}}}
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
