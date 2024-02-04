@@ -76,13 +76,13 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/build/install/ CACHE PATH "default install prefix" FORCE)
 endif()
 
-{{#is_lib}}
+{{^is_exe}}
 option(BUILD_TEST "build test" OFF)
 option(BUILD_EXAMPLE "build example" OFF)
-{{/is_lib}}
+{{/is_exe}}
 
 add_subdirectory(src)
-{{#is_lib}}
+{{^is_exe}}
 if(BUILD_TEST)
     add_subdirectory (test)
 endif()
@@ -103,4 +103,4 @@ if (BUILD_EXAMPLE OR BUILD_TEST)
         INSTALL(FILES ${DYLIBS} DESTINATION lib)
     endif()
 endif()
-{{/is_lib}}
+{{/is_exe}}

@@ -4,12 +4,12 @@
 """cppiniter init a cpp project struction
 
 Usage:
-    cppiniter [<dir>] [--name=<name>] [--lib]
+    cppiniter [<dir>] [--name=<name>] [--exe]
 
 Options:
     <dir>                   项目目录，默认为当前目录
     --name=<name>           项目名，默认为项目目录名
-    --lib                   项目目标为C++库
+    --exe                   项目目标为C++应用程序，默认为库
 """
 
 import os
@@ -28,7 +28,7 @@ EMPTY_DIR = ("build", "doc")
 
 def install(args):
     ignores = ["*.pyc", "__pycache__"]
-    if args["is_lib"]:
+    if args["is_exe"]:
         ignores.append("src/main.cpp")
 
     dir = os.path.dirname(os.path.realpath(__file__))
@@ -56,7 +56,7 @@ def render(dir, args):
 def preprocess(args):
     project_dir = args["<dir>"]
     project_name = args["--name"]
-    is_lib = args["--lib"]
+    is_exe = args["--exe"]
     author = subprocess.check_output(["git", "config", "--get", "user.name"]
                                      ).decode(sys.stdout.encoding).strip()
     email = subprocess.check_output(["git", "config", "--get", "user.email"]
@@ -84,7 +84,7 @@ def preprocess(args):
 
     project_name_uppercase = project_name.upper()
     project_name_camelcase = ''.join(project_name.title() for word in project_name.split('_'))
-    return {"project_name": project_name, "project_name_uppercase": project_name_uppercase, "project_name_camelcase": project_name_camelcase, "project_dir": project_dir, "is_lib": is_lib, "date_time": date_time, "author": author, "email": email}
+    return {"project_name": project_name, "project_name_uppercase": project_name_uppercase, "project_name_camelcase": project_name_camelcase, "project_dir": project_dir, "is_exe": is_exe, "date_time": date_time, "author": author, "email": email}
 
 
 def execute(dir):

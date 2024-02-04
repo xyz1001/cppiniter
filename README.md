@@ -21,12 +21,12 @@ pip3 install cppiniter
 
 ```
 Usage:
-    cppiniter [<dir>] [--name=<name>] [--lib]
+    cppiniter [<dir>] [--name=<name>] [--exe]
 
 Options:
     <dir>                   项目目录，默认为当前目录
     --name=<name>           项目名，默认为项目目录名
-    --lib                   项目目标为C++库
+    --exe                   项目目标为C++应用程序，默认为库
 ```
 
 ## 目录结构
@@ -59,6 +59,12 @@ project
 │   ├── CMakeLists.txt
 │   │
 │   └── main.cpp # 加快doctest的编译速度
+│
+├── example # 所有的示例程序文件应该放在这个目录下面
+│   │
+│   ├── CMakeLists.txt
+│   │
+│   └── main.cpp
 │
 ├── doc # 文档保存目录
 │
