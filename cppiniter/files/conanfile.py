@@ -17,7 +17,8 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
     options = {"shared": [True, False], "test": [True, False]}
     default_options = {"shared": True, "test": False}
 
-    def _make_version(self):
+    @property
+    def version_name(self):
         type_dict = {"stable": "R", "snapshot": "D", "testing": "T"}
         type = type_dict.get(self.channel, "S")
         hash = os.getenv("GIT_COMMIT", "")[:6]
@@ -51,7 +52,8 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         else:
             tc = CMakeToolchain(self)
 
-        tc.variables["VERSION_NAME"] = self._make_version()
+        if self.version:
+            tc.variables["VERSION_NAME"] = self.version_name
         tc.variables["BUILD_TEST"] = self.options.test
         tc.generate()
 
