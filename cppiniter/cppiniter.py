@@ -24,12 +24,16 @@ from datetime import datetime
 
 IGNORE_FILES = set([".git", "LICENSE"])
 EMPTY_DIR = ("build", "doc")
+RENAME_FILES = {"src/project_name/project_name.h": "src/project_name/{{project_name}}.h", "src/project_name/project_name.cpp": "src/project_name/{{project_name}}.cpp", "src/project_name": "src/{{project_name}}"}
 
 
 def install(args):
     ignores = ["*.pyc", "__pycache__"]
+
     if args["is_exe"]:
-        ignores.append("src/main.cpp")
+        ignores.append("example")
+        ignores.append("test")
+        ignores.append("{{project_name}}")
 
     dir = os.path.dirname(os.path.realpath(__file__))
     shutil.copytree(os.path.join(dir, "files"),
@@ -38,6 +42,13 @@ def install(args):
                     dirs_exist_ok=True)
     for i in EMPTY_DIR:
         os.mkdir(os.path.join(args["project_dir"], i))
+    for key, value in RENAME_FILES.items():
+        src_path = os.path.join(args["project_dir"], key)
+        dst_path = os.path.join(args["project_dir"], pystache.render(value, args))
+        os.rename(src_path, dst_path)
+
+    if not args["is_exe"]:
+        os.remove(os.path.join(args["project_dir"], "src", "main.cpp"))
 
 
 def render(dir, args):
