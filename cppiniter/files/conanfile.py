@@ -14,8 +14,14 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
     description = ""
     topics = ("bytelloshare")
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "test": [True, False]}
-    default_options = {"shared": True, "test": False}
+{{#is_exe}}
+    options = {"shared": [True, False]}
+    default_options = {"shared": True}
+{{/is_exe}}
+{{^is_exe}}
+    options = {"shared": [True, False], "test": [True, False], "example": [True, False]}
+    default_options = {"shared": True, "test": False, "example": False}
+{{/is_exe}}
 
     @property
     def version_name(self):
@@ -54,7 +60,10 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
 
         if self.version:
             tc.variables["VERSION_NAME"] = self.version_name
+{{^is_exe}}
         tc.variables["BUILD_TEST"] = self.options.test
+        tc.variables["BUILD_EXAMPLE"] = self.options.example
+{{/is_exe}}
         tc.generate()
 
         deps = CMakeDeps(self)
