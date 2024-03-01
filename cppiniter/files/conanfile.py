@@ -8,7 +8,12 @@ import os
 class {{{project_name_camelcase}}}Conan(ConanFile):
     name = "{{{project_name}}}"
     user = ""
+{{#is_exe}}
+    package_type = "application"
+{{/is_exe}}
+{{^is_exe}}
     package_type = "library"
+{{/is_exe}}
     author = "{{{author}}} {{{email}}}"
     url = ""
     description = ""
