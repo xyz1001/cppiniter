@@ -74,7 +74,11 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
             for dep in self.dependencies.values():
                 for bindir in dep.cpp_info.bindirs:
                     copy(self, "*.dll", bindir, self.build_folder)
-                    copy(self, "*.dylib", bindir, self.build_folder)
+
+        if self.settings.os == "Macos":
+            for dep in self.dependencies.values():
+                for libdir in dep.cpp_info.libdirs:
+                    copy(self, "*.dylib", libdir, self.build_folder)
 
 
     def build(self):
