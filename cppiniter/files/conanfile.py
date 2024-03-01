@@ -14,8 +14,7 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
     description = ""
     settings = "os", "compiler", "build_type", "arch"
 {{#is_exe}}
-    options = {"shared": [True, False]}
-    default_options = {"shared": True}
+    options = {}
 {{/is_exe}}
 {{^is_exe}}
     options = {"shared": [True, False], "test": [True, False], "example": [True, False]}
@@ -42,8 +41,11 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
 
     def requirements(self):
         self.requires("fmt/10.2.1")
+{{^is_exe}}
         if self.options.test:
             self.test_requires("doctest/2.4.11")
+{{/is_exe}}
+
 
     def configure(self):
         pass
@@ -84,8 +86,10 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         cmake = CMake(self)
         cmake.install()
 
+{{^is_exe}}
     def package_info(self):
         self.cpp_info.libs = ["{{{project_name}}}"]
 
         if self.options.shared:
             self.cpp_info.defines = ["{{{project_name_uppercase}}}_DLL"]
+{{/is_exe}}
