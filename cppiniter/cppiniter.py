@@ -102,10 +102,7 @@ def preprocess(args):
 
 def execute(dir):
     subprocess.run(["conan", "install", "..", "-s:h", "build_type=Debug", "--build", "missing"], cwd=os.path.join(dir, "build"))
-    if platform.system() == "Windows":
-        subprocess.run(["cmake","--preset=conan-default"], cwd=dir)
-    else:
-        subprocess.run(["cmake","--preset=conan-debug"], cwd=dir)
+    subprocess.run(["cmake","--preset=conan-debug"], cwd=dir)
 
 
 def main():
