@@ -13,7 +13,14 @@ Checks: "*,
         -hicpp-no-array-decay,
         -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
         -llvm-include-order,
+        -cppcoreguidelines-pro-type-reinterpret-cast,
+        -cppcoreguidelines-avoid-magic-numbers,
+        -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+        -bugprone-easily-swappable-parameters,
 "
-WarningsAsErrors: ''
-HeaderFilterRegex: ''
+WarningsAsErrors: false
+AnalyzeTemporaryDtors: false
 FormatStyle:     file
+CheckOptions:
+  - key:             misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value:           '1'
