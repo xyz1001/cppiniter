@@ -57,6 +57,11 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
 
     def layout(self):
         cmake_layout(self)
+{{^is_exe}}
+        self.cpp.source.includedirs = ["%s/install/include" % self.folders.build]
+        self.cpp.build.libdirs = ["install/lib"]
+        self.cpp.build.bindirs = ["install/bin"]
+{{/is_exe}}
 
     def generate(self):
         if self.settings.os == "Windows":
