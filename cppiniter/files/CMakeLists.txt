@@ -96,6 +96,7 @@ endif()
 
 if (BUILD_EXAMPLE OR BUILD_TEST)
     if (WIN32)
+        include(InstallRequiredSystemLibraries)
         set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
         set(CMAKE_INSTALL_DEBUG_LIBRARIES TRUE)
 
