@@ -4,5 +4,5 @@ repos:
     rev: v1.0.0
     hooks:
     -   id: check-commit-msg
-        args: ['(?:^\[(?:(?:feature)|(?:chore)|(?:refactor)|(?:revert)|(?:test)|(?:doc)|(?:style))\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+(?:\n^why: .*)?(?:\n^how: .*)?(?:\n^influence: .*)?$)|(?:^\[bugfix\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+\n^why: .+\n^how: .+\n^influence: .+$)']
+        args: ['(?:^\[(?:(?:feature)|(?:chore)|(?:refactor)|(?:revert)|(?:perf)|(?:test)|(?:doc)|(?:style))\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+(?:\n^why: .*)?(?:\n^how: .*)?(?:\n^influence: .*)?$)|(?:^\[bugfix\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+\n^why: .+\n^how: .+\n^influence: .+$)']
 
