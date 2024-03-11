@@ -12,4 +12,4 @@ file(GLOB SRC "*/*.h"
               "*.cpp")
 target_sources(example PRIVATE ${SRC})
 
-target_link_libraries({{{project_name}}} {{{project_name}}})
+target_link_libraries(example {{{project_name}}})
