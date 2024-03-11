@@ -55,6 +55,7 @@ def install(args):
 
 def render(dir, args):
     for root, dirs, files in os.walk(dir):
+        dirs[:] = [d for d in dirs if d != ".git"]
         for i in files:
             path = os.path.join(root, i)
             with open(path, "r") as fin:
@@ -62,8 +63,6 @@ def render(dir, args):
             content = pystache.render(content, args)
             with open(path, "w") as fout:
                 fout.write(content)
-        for i in dirs:
-            render(os.path.join(root, i), args)
 
 
 def preprocess(args):
