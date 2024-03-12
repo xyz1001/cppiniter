@@ -13,3 +13,6 @@ file(GLOB SRC "*/*.h"
 target_sources(example PRIVATE ${SRC})
 
 target_link_libraries(example {{{project_name}}})
+
+
+INSTALL(TARGETS example RUNTIME DESTINATION bin)

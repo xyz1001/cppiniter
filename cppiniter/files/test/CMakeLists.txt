@@ -15,3 +15,5 @@ target_sources(unittest PRIVATE ${SRC})
 find_package(doctest REQUIRED CONFIG)
 
 target_link_libraries(unittest doctest::doctest {{{project_name}}})
+
+INSTALL(TARGETS unittest RUNTIME DESTINATION bin)
