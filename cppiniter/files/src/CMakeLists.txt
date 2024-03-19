@@ -9,7 +9,7 @@ add_executable({{{project_name}}})
 add_library({{{project_name}}})
 
 if(BUILD_SHARED_LIBS)
-    target_compile_definitions({{{project_name}}} PRIVATE {{{project_name_uppercase}}}_DLL {{{project_name_uppercase}}}_EXPORTS)
+    target_compile_definitions({{{project_name}}} PRIVATE {{{project_name_uppercase}}}_DLL {{{project_name_uppercase}}}_DLL_EXPORTS)
 endif()
 {{/is_exe}}
 
