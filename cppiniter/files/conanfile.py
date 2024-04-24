@@ -80,15 +80,21 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
 
-        if self.settings.os == "Windows":
-            for dep in self.dependencies.values():
-                for bindir in dep.cpp_info.bindirs:
-                    copy(self, "*.dll", bindir, self.build_folder)
+        if self.options.test or self.options.app:
+            if self.settings.os == "Windows":
+                for dep in self.dependencies.values():
+                    for bindir in dep.cpp_info.bindirs:
+                        copy(self, "*.dll", bindir, self.build_folder)
 
-        if self.settings.os == "Macos":
-            for dep in self.dependencies.values():
-                for libdir in dep.cpp_info.libdirs:
-                    copy(self, "*.dylib", libdir, self.build_folder)
+            if self.settings.os == "Macos":
+                for dep in self.dependencies.values():
+                    for libdir in dep.cpp_info.libdirs:
+                        copy(self, "*.dylib", libdir, self.build_folder)
+
+            if self.settings.os == "Linux":
+                for dep in self.dependencies.values():
+                    for libdir in dep.cpp_info.libdirs:
+                        copy(self, "*.so*", libdir, self.build_folder)
 
 
     def build(self):
