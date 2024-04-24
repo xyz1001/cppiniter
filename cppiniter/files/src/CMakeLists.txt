@@ -32,6 +32,18 @@ find_package(fmt REQUIRED CONFIG)
 
 target_link_libraries({{{project_name}}} fmt::fmt)
 
+{{#is_exe}}
+if(LINUX)
+    set_target_properties({{{project_name}}} PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+elseif(APPLE)
+    set_target_properties({{{project_name}}} PROPERTIES INSTALL_RPATH "@executable_path/../lib")
+endif()
+{{/is_exe}}
+{{^is_exe}}
+if(LINUX)
+    set_target_properties({{{project_name}}} PROPERTIES INSTALL_RPATH "$ORIGIN")
+endif()
+{{/is_exe}}
 INSTALL(TARGETS {{{project_name}}}
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib

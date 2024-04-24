@@ -14,5 +14,9 @@ target_sources(example PRIVATE ${SRC})
 
 target_link_libraries(example {{{project_name}}})
 
-
+if(LINUX)
+    set_target_properties(example PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+elseif(APPLE)
+    set_target_properties(example PROPERTIES INSTALL_RPATH "@executable_path/../lib")
+endif()
 INSTALL(TARGETS example RUNTIME DESTINATION bin)

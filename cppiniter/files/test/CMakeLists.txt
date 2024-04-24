@@ -16,4 +16,9 @@ find_package(doctest REQUIRED CONFIG)
 
 target_link_libraries(unittest doctest::doctest {{{project_name}}})
 
+if(LINUX)
+    set_target_properties(unittest PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+elseif(APPLE)
+    set_target_properties(unittest PROPERTIES INSTALL_RPATH "@executable_path/../lib")
+endif()
 INSTALL(TARGETS unittest RUNTIME DESTINATION bin)
