@@ -13,14 +13,22 @@ Checks: "*,
         -hicpp-no-array-decay,
         -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
         -llvm-include-order,
-        -cppcoreguidelines-pro-type-reinterpret-cast,
-        -cppcoreguidelines-avoid-magic-numbers,
         -cppcoreguidelines-pro-bounds-pointer-arithmetic,
         -bugprone-easily-swappable-parameters,
+        -cppcoreguidelines-non-private-member-variables-in-classes,
+        -bugprone-narrowing-conversions,
+        -cppcoreguidelines-avoid-magic-numbers,
+        -cppcoreguidelines-owning-memory,
 "
+
 WarningsAsErrors: false
-AnalyzeTemporaryDtors: false
 FormatStyle:     file
 CheckOptions:
   - key:             misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
     value:           '1'
+  - key:             cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value:           true
+  - key:             performance-unnecessary-value-param.AllowedTypes
+    value:           'std::function;std::shared_ptr'
+  - key:             cppcoreguidelines-narrowing-conversions.IgnoreConversionFromTypes
+    value:           'size_t;ptrdiff_t;size_type;difference_type'
