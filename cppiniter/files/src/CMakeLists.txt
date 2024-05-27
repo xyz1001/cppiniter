@@ -22,10 +22,7 @@ configure_file(${CMAKE_CURRENT_LIST_DIR}/version.h.in ${CMAKE_BINARY_DIR}/versio
 configure_file(${CMAKE_CURRENT_LIST_DIR}/{{{project_name}}}/version.h.in ${CMAKE_BINARY_DIR}/version.h)
 {{/is_exe}}
 
-file(GLOB SRC "*/*.h"
-              "*/*.cpp"
-              "*.hpp"
-              "*.cpp")
+file(GLOB_RECURSE SRC "*.h" "*.hpp" "*.cpp")
 target_sources({{{project_name}}} PRIVATE ${SRC})
 
 find_package(fmt REQUIRED CONFIG)
