@@ -7,6 +7,7 @@ import os
 
 class {{{project_name_camelcase}}}Conan(ConanFile):
     name = "{{{project_name}}}"
+    version = "0.0.0"
     user = ""
 {{#is_exe}}
     package_type = "application"

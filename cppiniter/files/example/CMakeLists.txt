@@ -6,10 +6,7 @@ add_executable(example)
 
 target_include_directories(example PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
-file(GLOB SRC "*/*.h"
-              "*/*.cpp"
-              "*.hpp"
-              "*.cpp")
+file(GLOB_RECURSE SRC "*.h" "*.hpp" "*.cpp")
 target_sources(example PRIVATE ${SRC})
 
 target_link_libraries(example {{{project_name}}})

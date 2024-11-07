@@ -1,8 +1,23 @@
 default_install_hook_types: [pre-commit, commit-msg]
+fail_fast: false
 repos:
   - repo: https://github.com/xyz1001/pre-commit-hooks-cpp
     rev: v1.0.0
     hooks:
     -   id: check-commit-msg
-        args: ['(?:^(?:fixup! )*\[(?:(?:feature)|(?:chore)|(?:refactor)|(?:revert)|(?:perf)|(?:test)|(?:doc)|(?:style))\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+(?:\n^why: .*)?(?:\n^how: .*)?(?:\n^influence: .*)?$)|(?:^(?:fixup! )*\[bugfix\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+\n^why: .+\n^how: .+\n^influence: .+$)']
-
+        args: ['(?:^(?:fixup! )*\[(?:(?:feature)|(?:chore)|(?:refactor)|(?:revert)|(?:perf)|(?:test)|(?:doc)|(?:style)(?:improve)|(?:build)|(?:depend)|)\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+(?:\n^why: .*)?(?:\n^how: .*)?(?:\n^influence: .*)?$)|(?:^(?:fixup! )*\[bugfix\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+\n^why: .+\n^how: .+\n^influence: .+$)']
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: 336fdd7c3cab698ead0b1c95157b9e74d3906b62
+    hooks:
+      - id: clang-format
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.6.0
+      hooks:
+      -   id: check-added-large-files
+          args: ['--maxkb=100']
+      -   id: check-case-conflict
+      -   id: check-merge-conflict
+      -   id: fix-byte-order-marker
+          exclude: 'CMakeSettings.json'
+      -   id: mixed-line-ending
+          args: ['--fix=no']

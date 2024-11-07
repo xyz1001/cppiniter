@@ -6,10 +6,7 @@ add_executable(unittest)
 
 target_include_directories(unittest PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
-file(GLOB SRC "*/*.h"
-              "*/*.cpp"
-              "*.hpp"
-              "*.cpp")
+file(GLOB_RECURSE SRC "*.h" "*.hpp" "*.cpp")
 target_sources(unittest PRIVATE ${SRC})
 
 find_package(doctest REQUIRED CONFIG)
