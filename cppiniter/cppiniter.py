@@ -59,10 +59,10 @@ def render(dir, args):
         dirs[:] = [d for d in dirs if d != ".git"]
         for i in files:
             path = os.path.join(root, i)
-            with open(path, "r") as fin:
+            with open(path, "r", encoding="utf-8", newline='') as fin:
                 content = fin.read()
             content = pystache.render(content, args)
-            with open(path, "w") as fout:
+            with open(path, "w", encoding="utf-8", newline='') as fout:
                 fout.write(content)
 
 
