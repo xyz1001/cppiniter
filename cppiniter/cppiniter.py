@@ -21,6 +21,7 @@ import subprocess
 import platform
 from docopt import docopt
 from datetime import datetime
+from shutil import which
 
 IGNORE_FILES = set([".git", "LICENSE"])
 EMPTY_DIR = ("build", "doc")
@@ -105,6 +106,24 @@ def execute(dir):
 
 
 def main():
+    if which("cmake") is None:
+        print("Please install cmake")
+        exit(-1)
+    if which("conan") is None:
+        print("Please install conan")
+        exit(-1)
+    if platform.system() == "Windows":
+        if which("cl") is None:
+            print("Please install Visual Studio or import vcvarsall.bat")
+            exit(-1)
+    elif platform.system() == "Linux":
+        if which("g++") is None:
+            print("Please install g++")
+            exit(-1)
+    elif platform.system() == "Darwin":
+        if which("clang++") is None:
+            print("Please install XCode")
+            exit(-1)
     args = docopt(__doc__, version="1.0")
     args = preprocess(args)
     install(args)
