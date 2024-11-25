@@ -5,7 +5,7 @@ repos:
     rev: v1.0.0
     hooks:
     -   id: check-commit-msg
-        args: ['(?:^(?:fixup! )*\[(?:(?:feature)|(?:chore)|(?:refactor)|(?:revert)|(?:perf)|(?:test)|(?:doc)|(?:style)(?:improve)|(?:build)|(?:depend)|)\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+(?:\n^why: .*)?(?:\n^how: .*)?(?:\n^influence: .*)?$)|(?:^(?:fixup! )*\[bugfix\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+\n^why: .+\n^how: .+\n^influence: .+$)']
+        args: ['(?:^(?:fixup! )*\[(?:(?:feature)|(?:chore)|(?:refactor)|(?:revert)|(?:perf)|(?:test)|(?:doc)|(?:style)|(?:improve)|(?:build)|(?:depend)|)\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+(?:\n^why: .*)?(?:\n^how: .*)?(?:\n^influence: .*)?$)|(?:^(?:fixup! )*\[bugfix\]\[\d+\.\d+\.\d+\](?:\[[A-Z]+\-\d+\])? .+\n^why: .+\n^how: .+\n^influence: .+$)']
   - repo: https://github.com/pocc/pre-commit-hooks
     rev: 336fdd7c3cab698ead0b1c95157b9e74d3906b62
     hooks:
