@@ -96,7 +96,7 @@ def preprocess(args):
             exit(-1)
 
     project_name_uppercase = project_name.upper()
-    project_name_camelcase = ''.join(project_name.title() for word in project_name.split('_'))
+    project_name_camelcase = ''.join(word.title() for word in project_name.split('_'))
     return {"project_name": project_name, "project_name_uppercase": project_name_uppercase, "project_name_camelcase": project_name_camelcase, "project_dir": project_dir, "is_exe": is_exe, "date_time": date_time, "author": author, "email": email}
 
 
