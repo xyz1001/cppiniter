@@ -29,7 +29,7 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
 
     @property
     def version_name(self):
-        type_dict = {"stable": "R", "snapshot": "D", "testing": "T"}
+        type_dict = {"stable": "R", "snapshot": "D", "testing": "T", None: "T"}
         type = type_dict.get(self.channel, "S")
         hash = os.getenv("GIT_COMMIT", "")[:6]
         return "%s.%s-%s" % (type, self.version, hash)
