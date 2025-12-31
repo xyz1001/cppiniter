@@ -32,7 +32,7 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         type_dict = {"stable": "R", "snapshot": "D", "testing": "T", None: "T"}
         type = type_dict.get(self.channel, "S")
         hash = os.getenv("GIT_COMMIT", "")[:6]
-        return "%s.%s-%s" % (type, self.version, hash)
+        return "%s.%s-%s" % (type, self.version, hash if hash else "unknown")
 
     def export(self):
         git = Git(self, self.recipe_folder)
