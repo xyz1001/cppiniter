@@ -82,38 +82,22 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         deps.generate()
 
 {{#is_exe}}
-        if self.settings.os == "Windows":
-            for dep in self.dependencies.values():
-                for bindir in dep.cpp_info.bindirs:
-                    copy(self, "*.dll", bindir, self.build_folder)
-
-        if self.settings.os == "Macos":
-            for dep in self.dependencies.values():
-                for libdir in dep.cpp_info.libdirs:
-                    copy(self, "*.dylib", libdir, self.build_folder)
-
-        if self.settings.os == "Linux":
-            for dep in self.dependencies.values():
-                for libdir in dep.cpp_info.libdirs:
-                    copy(self, "*.so*", libdir, self.build_folder)
+        deploy = True
 {{/is_exe}}
 {{^is_exe}}
-        if self.options.test or self.options.example:
-            if self.settings.os == "Windows":
-                for dep in self.dependencies.values():
-                    for bindir in dep.cpp_info.bindirs:
-                        copy(self, "*.dll", bindir, self.build_folder)
-
-            if self.settings.os == "Macos":
-                for dep in self.dependencies.values():
-                    for libdir in dep.cpp_info.libdirs:
-                        copy(self, "*.dylib", libdir, self.build_folder)
-
-            if self.settings.os == "Linux":
-                for dep in self.dependencies.values():
-                    for libdir in dep.cpp_info.libdirs:
-                        copy(self, "*.so*", libdir, self.build_folder)
+        deploy = self.options.test or self.options.example
 {{/is_exe}}
+        if deploy:
+            import_folder = os.path.join(self.build_folder, "import")
+            for dep in self.dependencies.values():
+                if self.settings.os == "Windows":
+                    for bindir in dep.cpp_info.bindirs:
+                        copy(self, "*.dll", bindir, os.path.join(import_folder, "bin"))
+                        copy(self, "*.pdb", bindir, os.path.join(import_folder, "bin"))
+                elif self.settings.os == "Linux" or self.settings.os == "Macos":
+                    for libdir in dep.cpp_info.libdirs:
+                        copy(self, "*.so*", libdir, os.path.join(import_folder, "lib"))
+                        copy(self, "*.dylib", libdir, os.path.join(import_folder, "lib"))
 
 
     def build(self):
@@ -132,3 +116,4 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         if self.options.shared:
             self.cpp_info.defines = ["{{{project_name_uppercase}}}_DLL"]
 {{/is_exe}}
+

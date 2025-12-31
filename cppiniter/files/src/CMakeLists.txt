@@ -47,5 +47,5 @@ INSTALL(TARGETS {{{project_name}}}
         ARCHIVE DESTINATION lib)
 
 if(MSVC AND BUILD_SHARED_LIBS)
-    install(FILES $<TARGET_PDB_FILE:{{{project_name}}}> DESTINATION lib)
+    install(FILES $<TARGET_PDB_FILE:{{{project_name}}}> DESTINATION bin)
 endif()

@@ -75,6 +75,9 @@ option(BUILD_EXAMPLE "build example" OFF)
 {{/is_exe}}
 
 add_subdirectory(src)
+{{#is_exe}}
+set(DEPLOY ON)
+{{/is_exe}}
 {{^is_exe}}
 if(BUILD_TEST)
     add_subdirectory (test)
@@ -85,22 +88,15 @@ if(BUILD_EXAMPLE)
 endif()
 
 if (BUILD_EXAMPLE OR BUILD_TEST)
-    if (WIN32)
-        set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
-        if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-            set(CMAKE_INSTALL_DEBUG_LIBRARIES TRUE)
-            set(CMAKE_INSTALL_DEBUG_LIBRARIES_ONLY TRUE)
-        endif()
-        include(InstallRequiredSystemLibraries)
-
-        file(GLOB DLLS ${CMAKE_BINARY_DIR}/*.dll)
-        INSTALL(FILES ${DLLS} DESTINATION bin)
-    elseif(LINUX)
-        file(GLOB SOS ${CMAKE_BINARY_DIR}/*.so*)
-        INSTALL(FILES ${SOS} DESTINATION lib)
-    elseif(APPLE)
-        file(GLOB DYLIBS ${CMAKE_BINARY_DIR}/*.dylib)
-        INSTALL(FILES ${DYLIBS} DESTINATION lib)
-    endif()
+    set(DEPLOY ON)
 endif()
 {{/is_exe}}
+
+if(DEPLOY)
+    if (WIN32)
+        include(InstallRequiredSystemLibraries)
+        set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
+        set(CMAKE_INSTALL_DEBUG_LIBRARIES TRUE)
+    endif()
+    INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/import/ DESTINATION . USE_SOURCE_PERMISSIONS)
+endif()
