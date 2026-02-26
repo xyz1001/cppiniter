@@ -3,13 +3,13 @@
 ######################################################################
 
 {{#is_exe}}
-add_executable({{{project_name}}})
 set(TARGET {{{project_name}}})
+add_executable(${TARGET})
 {{/is_exe}}
 {{^is_exe}}
 # OBJECT library: 承载所有源码编译，供动态库和 test 共用
-add_library({{{project_name}}}_obj OBJECT)
 set(TARGET {{{project_name}}}_obj)
+add_library(${TARGET} OBJECT)
 
 if(BUILD_SHARED_LIBS)
     target_compile_definitions(${TARGET} PRIVATE {{{project_name_uppercase}}}_DLL {{{project_name_uppercase}}}_DLL_EXPORTS)
