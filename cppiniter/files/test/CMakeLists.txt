@@ -11,7 +11,8 @@ target_sources(unittest PRIVATE ${SRC})
 
 find_package(doctest REQUIRED CONFIG)
 
-target_link_libraries(unittest doctest::doctest {{{project_name}}})
+# 链接 OBJECT library 以访问所有内部符号（绕过动态库符号可见性限制）
+target_link_libraries(unittest doctest::doctest {{{project_name}}}_obj)
 
 if(LINUX)
     set_target_properties(unittest PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")

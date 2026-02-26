@@ -4,16 +4,19 @@
 
 {{#is_exe}}
 add_executable({{{project_name}}})
+set(TARGET {{{project_name}}})
 {{/is_exe}}
 {{^is_exe}}
-add_library({{{project_name}}})
+# OBJECT library: 承载所有源码编译，供动态库和 test 共用
+add_library({{{project_name}}}_obj OBJECT)
+set(TARGET {{{project_name}}}_obj)
 
 if(BUILD_SHARED_LIBS)
-    target_compile_definitions({{{project_name}}} PRIVATE {{{project_name_uppercase}}}_DLL {{{project_name_uppercase}}}_DLL_EXPORTS)
+    target_compile_definitions(${TARGET} PRIVATE {{{project_name_uppercase}}}_DLL {{{project_name_uppercase}}}_DLL_EXPORTS)
 endif()
 {{/is_exe}}
 
-target_include_directories({{{project_name}}} PUBLIC ${CMAKE_CURRENT_LIST_DIR} ${CMAKE_BINARY_DIR})
+target_include_directories(${TARGET} PUBLIC ${CMAKE_CURRENT_LIST_DIR} ${CMAKE_BINARY_DIR})
 
 {{#is_exe}}
 configure_file(${CMAKE_CURRENT_LIST_DIR}/version.h.in ${CMAKE_BINARY_DIR}/version.h)
@@ -23,11 +26,18 @@ configure_file(${CMAKE_CURRENT_LIST_DIR}/{{{project_name}}}/version.h.in ${CMAKE
 {{/is_exe}}
 
 file(GLOB_RECURSE SRC "*.h" "*.hpp" "*.cpp")
-target_sources({{{project_name}}} PRIVATE ${SRC})
+target_sources(${TARGET} PRIVATE ${SRC})
 
 find_package(fmt REQUIRED CONFIG)
 
-target_link_libraries({{{project_name}}} fmt::fmt)
+target_link_libraries(${TARGET} fmt::fmt)
+
+{{^is_exe}}
+# 动态库/静态库：从 OBJECT library 构建
+add_library({{{project_name}}} $<TARGET_OBJECTS:${TARGET}>)
+target_link_libraries({{{project_name}}} $<TARGET_PROPERTY:${TARGET},LINK_LIBRARIES>)
+target_include_directories({{{project_name}}} PUBLIC ${CMAKE_CURRENT_LIST_DIR} ${CMAKE_BINARY_DIR})
+{{/is_exe}}
 
 {{#is_exe}}
 if(LINUX)
