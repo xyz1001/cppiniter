@@ -25,7 +25,11 @@ from shutil import which
 
 IGNORE_FILES = set([".git", "LICENSE"])
 EMPTY_DIR = ("build", "doc")
-RENAME_FILES = {"src/project_name/project_name.h": "src/project_name/{{project_name}}.h", "src/project_name/project_name.cpp": "src/project_name/{{project_name}}.cpp", "src/project_name": "src/{{project_name}}"}
+RENAME_FILES = {
+    "src/project_name/project_name.h": "src/project_name/{{project_name}}.h",
+    "src/project_name/project_name.cpp": "src/project_name/{{project_name}}.cpp",
+    "src/project_name": "src/{{project_name}}",
+}
 
 
 def install(args):
@@ -36,10 +40,9 @@ def install(args):
         ignores.append("test")
 
     dir = os.path.dirname(os.path.realpath(__file__))
-    shutil.copytree(os.path.join(dir, "files"),
-                    args["project_dir"],
-                    ignore=shutil.ignore_patterns(*ignores),
-                    dirs_exist_ok=True)
+    shutil.copytree(
+        os.path.join(dir, "files"), args["project_dir"], ignore=shutil.ignore_patterns(*ignores), dirs_exist_ok=True
+    )
     for i in EMPTY_DIR:
         os.mkdir(os.path.join(args["project_dir"], i))
     for key, value in RENAME_FILES.items():
@@ -59,10 +62,10 @@ def render(dir, args):
         dirs[:] = [d for d in dirs if d != ".git"]
         for i in files:
             path = os.path.join(root, i)
-            with open(path, "r", encoding="utf-8", newline='') as fin:
+            with open(path, "r", encoding="utf-8", newline="") as fin:
                 content = fin.read()
             content = pystache.render(content, args)
-            with open(path, "w", encoding="utf-8", newline='') as fout:
+            with open(path, "w", encoding="utf-8", newline="") as fout:
                 fout.write(content)
 
 
@@ -70,10 +73,8 @@ def preprocess(args):
     project_dir = args["<dir>"]
     project_name = args["--name"]
     is_exe = args["--exe"]
-    author = subprocess.check_output(["git", "config", "--get", "user.name"]
-                                     ).decode(sys.stdout.encoding).strip()
-    email = subprocess.check_output(["git", "config", "--get", "user.email"]
-                                    ).decode(sys.stdout.encoding).strip()
+    author = subprocess.check_output(["git", "config", "--get", "user.name"]).decode(sys.stdout.encoding).strip()
+    email = subprocess.check_output(["git", "config", "--get", "user.email"]).decode(sys.stdout.encoding).strip()
     date_time = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
     if author is None:
@@ -96,13 +97,24 @@ def preprocess(args):
             exit(-1)
 
     project_name_uppercase = project_name.upper()
-    project_name_camelcase = ''.join(word.title() for word in project_name.split('_'))
-    return {"project_name": project_name, "project_name_uppercase": project_name_uppercase, "project_name_camelcase": project_name_camelcase, "project_dir": project_dir, "is_exe": is_exe, "date_time": date_time, "author": author, "email": email}
+    project_name_camelcase = "".join(word.title() for word in project_name.split("_"))
+    return {
+        "project_name": project_name,
+        "project_name_uppercase": project_name_uppercase,
+        "project_name_camelcase": project_name_camelcase,
+        "project_dir": project_dir,
+        "is_exe": is_exe,
+        "date_time": date_time,
+        "author": author,
+        "email": email,
+    }
 
 
 def execute(dir):
-    subprocess.run(["conan", "install", "..", "-s:h", "build_type=Debug", "--build", "missing"], cwd=os.path.join(dir, "build"))
-    subprocess.run(["cmake","--preset=conan-debug"], cwd=dir)
+    subprocess.run(
+        ["conan", "install", "..", "-s:h", "build_type=Debug", "--build", "missing"], cwd=os.path.join(dir, "build")
+    )
+    subprocess.run(["cmake", "--preset=conan-debug"], cwd=dir)
 
 
 def main():

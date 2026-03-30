@@ -52,7 +52,6 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
             self.test_requires("doctest/2.4.11")
 {{/is_exe}}
 
-
     def configure(self):
         pass
 
@@ -99,7 +98,6 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
                         copy(self, "*.so*", libdir, os.path.join(import_folder, "lib"))
                         copy(self, "*.dylib", libdir, os.path.join(import_folder, "lib"))
 
-
     def build(self):
         cmake = CMake(self)
         cmake.configure()
@@ -116,4 +114,3 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         if self.options.shared:
             self.cpp_info.defines = ["{{{project_name_uppercase}}}_DLL"]
 {{/is_exe}}
-
