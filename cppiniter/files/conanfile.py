@@ -56,18 +56,17 @@ class {{{project_name_camelcase}}}Conan(ConanFile):
         pass
 
     def layout(self):
-        cmake_layout(self)
+        tc = CMakeToolchain(self, generator="Ninja Multi-Config")
 {{^is_exe}}
-        self.cpp.source.includedirs = ["%s/install/include" % self.folders.build]
-        self.cpp.build.libdirs = ["install/lib"]
         self.cpp.build.bindirs = ["install/bin"]
+        self.cpp.build.libdirs = ["install/lib"]
+        self.cpp.build.includedirs = ["install/include"]
+        self.cpp.source.includedirs.clear()
 {{/is_exe}}
 
     def generate(self):
-        if self.settings.os == "Windows":
-            tc = CMakeToolchain(self, generator="Ninja")
-        else:
-            tc = CMakeToolchain(self)
+        tc = CMakeToolchain(self, generator="Ninja Multi-Config")
+        tc.cache_variables["CMAKE_DEFAULT_BUILD_TYPE"] = str(self.settings.build_type)
 
         if self.version:
             tc.variables["VERSION_NAME"] = self.version_name
